@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -8,6 +8,14 @@ const LoginForm = () => {
     console.log("username", username);
     console.log("password", password);
   };
+
+  useEffect(() => {
+    console.log("LoginForm component mounted");
+    console.log("username", username);
+    console.log("password", password);
+  }, [password, username]);
+
+
 
   return (
     <div className="login-form">
@@ -20,12 +28,12 @@ const LoginForm = () => {
           type="text"
           name="username"
           onChange={(event) => setUsername(event.target.value)}
-          placeholder="username"
+          placeholder="Username"
           value={username}
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
         />
         <button type="submit" onClick={handleSubmit}>
