@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../App";
 
 const ToolBar = () => {
   return (
@@ -16,7 +17,7 @@ function Button() {
         backgroundColor: theme === "light" ? "#fff" : "#333",
         color: theme === "light" ? "black" : "white",
       }}
-      onClick={() => setTheme(theme === "light" ? "light" : "dark")}
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
       Click Me
     </button>
