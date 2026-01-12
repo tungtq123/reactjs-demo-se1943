@@ -50,11 +50,14 @@ function App() {
         Increment
       </button>
       <button onClick={() => dispatch({ type: "decrement" })}>Decrement</button> */}
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<UserList />} />
-        <Route path="/users" element={<ProfileComponent />} />
+        <Route
+          path="/users/:id"
+          element={<ProfileComponent isLoggedIn={false} />}
+        />
         <Route path="/products" element={<MyComponent />} />
         <Route path="/detail/id" element={<MyComponent />} />
         <Route path="/dashboard" element={<Dashboard />}>

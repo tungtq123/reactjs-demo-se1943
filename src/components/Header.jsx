@@ -6,7 +6,7 @@ import NavbarSample from "./NavbarSample";
 const Header = () => {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid mt-0">
         <NavbarSample />
       </div>
     </>

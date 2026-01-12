@@ -26,13 +26,15 @@ const UserList = () => {
   return (
     <div>
       <h1>UserList</h1>
-      <Table striped hover>
+      <Table striped bordered hover>
         <thead>
-          <td>ID</td>
-          <td>Name</td>
-          <td>Age</td>
-          <td>Email</td>
-          <td>Action</td>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody>
           {users.map((user) => (
