@@ -1,21 +1,5 @@
-import React from "react";
-
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
-  componentDidMount() {
-    console.log('Login component mounted');
-  }
-  componentWillUnmount() {
-    console.log('Login component unmounted');
-  }
-  
-  render() {
+const Login = () => {
+  return (
     <div>
       <h1>Login</h1>
       <form>
@@ -34,6 +18,6 @@ class Login extends React.Component {
         <button type="submit">Login</button>
       </form>
     </div>
-  }
+  )
 }
-export default Login;
+export default Login

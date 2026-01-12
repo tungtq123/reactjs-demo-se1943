@@ -1,16 +1,29 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-function ProfileComponent({ isLoggedIn, setIsLoggedIn }) {
-  // const [isLogggedIn, setIsLoggedIn] = useState(false);
+function ProfileComponent() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const fetchData = async () => {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    if (response.ok) {
+      const data = await response.json();
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
   //const [user, setUser] = useState(null);
   useEffect(() => {
     // This effect runs once when the component is mounted
     console.log("ProfileComponent mounted");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchData();
   }, []);
+
   return (
     <div>
-      {isLoggedIn === false && Navigate("/login", { replace: true })}
+      {isLoggedIn === false && <Navigate to="/login" replace />}
       <h1>User Profile</h1>
       <p>This is the profile component.</p>
     </div>

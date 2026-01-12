@@ -11,7 +11,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ProfileComponent from "./components/ProfileComponent";
 import MyComponent from "./components/MyComponent";
-import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import DashboardMessage from "./components/DashboardMessage";
 import Header from "./components/Header";
@@ -56,14 +55,14 @@ function App() {
         <Route path="/users" element={<UserList />} />
         <Route
           path="/users/:id"
-          element={<ProfileComponent isLoggedIn={false} />}
+          element={<ProfileComponent  />}
         />
         <Route path="/products" element={<MyComponent />} />
         <Route path="/detail/id" element={<MyComponent />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="messages" element={<DashboardMessage />} />
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
       <footer className="footer">
