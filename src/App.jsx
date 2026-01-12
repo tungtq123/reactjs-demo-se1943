@@ -14,6 +14,7 @@ import MyComponent from "./components/MyComponent";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import DashboardMessage from "./components/DashboardMessage";
+import Header from "./components/Header";
 
 export const ThemeContext = React.createContext("light");
 // luu data vao useContext cho phep truy cap vao kho du lieu chung tu cac components,
@@ -48,6 +49,7 @@ function App() {
         Increment
       </button>
       <button onClick={() => dispatch({ type: "decrement" })}>Decrement</button> */}
+      <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<ProfileComponent />} />
@@ -59,6 +61,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <footer className="footer">
+        <p>@ 2026 My Website. All rights reserved.</p>
+      </footer>
     </>
   );
 }
