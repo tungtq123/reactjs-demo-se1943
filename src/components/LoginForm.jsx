@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("username", username);
     console.log("password", password);
+    if (username === "admin" && password === "password") {
+      alert("Login successful");
+      navigate("/users", {replace: true});
+    } else {
+      alert("Login failed");
+    }
   };
 
   useEffect(() => {
@@ -14,8 +22,6 @@ const LoginForm = () => {
     console.log("username", username);
     console.log("password", password);
   }, [password, username]);
-
-
 
   return (
     <div className="login-form">
