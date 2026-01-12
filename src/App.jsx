@@ -12,6 +12,8 @@ import Home from "./pages/Home";
 import ProfileComponent from "./components/ProfileComponent";
 import MyComponent from "./components/MyComponent";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import DashboardMessage from "./components/DashboardMessage";
 
 export const ThemeContext = React.createContext("light");
 // luu data vao useContext cho phep truy cap vao kho du lieu chung tu cac components,
@@ -33,7 +35,7 @@ function App() {
   const [state, dispatch] = React.useReducer(reducer, { count: 0 });
 
   return (
-    <div className="container-fluid">
+    <>
       {/* <ThemeContext.Provider value={[theme, setTheme]}>
         <ToolBar />
         <LoginForm />
@@ -51,11 +53,13 @@ function App() {
         <Route path="/users" element={<ProfileComponent />} />
         <Route path="/products" element={<MyComponent />} />
         <Route path="/detail/id" element={<MyComponent />} />
-
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="messages" element={<DashboardMessage />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
