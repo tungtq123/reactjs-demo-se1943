@@ -15,6 +15,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import DashboardMessage from "./components/DashboardMessage";
 import Header from "./components/Header";
+import UserList from "./components/UserList";
 
 export const ThemeContext = React.createContext("light");
 // luu data vao useContext cho phep truy cap vao kho du lieu chung tu cac components,
@@ -52,6 +53,7 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/users" element={<UserList />} />
         <Route path="/users" element={<ProfileComponent />} />
         <Route path="/products" element={<MyComponent />} />
         <Route path="/detail/id" element={<MyComponent />} />

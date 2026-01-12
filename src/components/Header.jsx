@@ -7,10 +7,7 @@ const Header = () => {
   return (
     <>
       <div className="container-fluid">
-        {/* <header className="">
-          <h1>My App</h1>
-        </header> */}
-        <NavbarSample/>
+        <NavbarSample />
       </div>
     </>
   );
