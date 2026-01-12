@@ -37,6 +37,15 @@ const NavbarSample = () => {
             >
               Products
             </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/location?id=123"
+              className={({ isActive }) =>
+                `nav-link ${isActive ? "active fw-bold" : ""}`
+              }
+            >
+              Location
+            </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/dashboard">
                 Dashboard

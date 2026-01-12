@@ -15,6 +15,7 @@ import Dashboard from "./components/Dashboard";
 import DashboardMessage from "./components/DashboardMessage";
 import Header from "./components/Header";
 import UserList from "./components/UserList";
+import LocationDisplay from "./components/LocationDisplay";
 
 export const ThemeContext = React.createContext("light");
 // luu data vao useContext cho phep truy cap vao kho du lieu chung tu cac components,
@@ -64,6 +65,7 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/location" element={<LocationDisplay />} />
       </Routes>
       <footer className="footer">
         <p>@ 2026 My Website. All rights reserved.</p>

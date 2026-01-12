@@ -45,6 +45,9 @@ const UserList = () => {
               <td>{user.email}</td>
               <td>
                 <Link to={`/users/${user.id}`}>View</Link>
+                <Link to={`/location?id=${user.id}`} state={{ user: "john" }}>
+                  Location
+                </Link>
               </td>
             </tr>
           ))}
