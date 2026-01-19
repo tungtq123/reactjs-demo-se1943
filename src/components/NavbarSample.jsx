@@ -1,6 +1,16 @@
+import { useContext } from "react";
 import { Nav, Navbar, Container, NavLink, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext";
 const NavbarSample = () => {
+  const navigate = useNavigate();
+  const { logout, user } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -45,6 +55,11 @@ const NavbarSample = () => {
               }
             >
               Location
+            </Nav.Link>
+            <Nav.Link
+              onClick={handleLogout}
+            >
+              Logout
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/dashboard">

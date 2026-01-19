@@ -6,7 +6,7 @@ import { useState } from "react";
 const UserList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState(0);
   const fetchUsers = () => {
     const name = searchParams.get("name");
     const age = searchParams.get("age");
@@ -20,6 +20,7 @@ const UserList = () => {
 
   const handleSearch = () => {
     setSearchParams({ name, age });
+    fetchUsers();
   };
 
   const users = [

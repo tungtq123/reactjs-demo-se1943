@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("username", username);
     console.log("password", password);
     if (username === "admin" && password === "password") {
+      const userData = {
+        username,
+        password,
+      };
+      login(userData);
       alert("Login successful");
-      navigate("/users", {replace: true});
+      navigate("/users", { replace: true });
     } else {
       alert("Login failed");
     }
