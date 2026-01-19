@@ -1,48 +1,60 @@
 import { Table } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
 import { FormGroup } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const UserList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
+  const [users, setUsers] = useState([]);
+
+  // dùng fetch để lấy data
+  // useEffect(() => {
+  //   fetch(
+  //     "https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users"
+  //   ).then(async (res) => {
+  //     const data = await res.json();
+  //     setUsers(data);
+  //   }).catch((err) => {
+  //     console.log(err);
+  //     alert("Error when get data from server");
+  //   })
+  // }, []);
+
+  // dùng axios để lấy data
+  useEffect(() => {
+    axios
+      .get("https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users")
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error when get data from server");
+      });
+  }, []);
+
   const fetchUsers = () => {
     const name = searchParams.get("name");
     const age = searchParams.get("age");
     console.log(name, age);
     const response = fetch(
-      "https://jsonplaceholder.typicode.com/users?name=" + name + "&age=" + age
-    )
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+      "https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users",
+    );
+    if (response.ok) {
+      const data = response.json();
+      setUsers(data);
+    } else {
+      alert("Error get data from server");
+    }
   };
 
   const handleSearch = () => {
     setSearchParams({ name, age });
     fetchUsers();
   };
-
-  const users = [
-    {
-      id: 1,
-      name: "John",
-      age: 20,
-      email: "john@gmail.com",
-    },
-    {
-      id: 2,
-      name: "Jane",
-      age: 21,
-      email: "Jane@gmail.com",
-    },
-    {
-      id: 3,
-      name: "Jack",
-      age: 22,
-      email: "Jack@gmail.com",
-    },
-  ];
 
   return (
     <div>
@@ -86,6 +98,7 @@ const UserList = () => {
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.name}</td>
+              <td>{user.avatar}</td>
               <td>{user.age}</td>
               <td>{user.email}</td>
               <td>
