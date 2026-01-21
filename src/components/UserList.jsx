@@ -1,5 +1,5 @@
 import { Table } from "react-bootstrap";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FormGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
 // import axios from "axios";
@@ -10,7 +10,9 @@ const UserList = () => {
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState("");
   const [users, setUsers] = useState([]);
+  let first = true;
 
+  const navigate = useNavigate();
   // dùng fetch để lấy data
   // useEffect(() => {
   //   fetch(
@@ -37,12 +39,11 @@ const UserList = () => {
   //     });
   // }, []);
 
-  async function fetchUsers(first = true) {
+  async function fetchUsers(first) {
     const name = searchParams.get("name");
     const age = searchParams.get("age");
     const url = import.meta.env.VITE_API_URL;
     console.log(name, age);
-    // await fetch("https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users")
     await fetch(url)
       .then((response) => {
         return response.json();
@@ -56,8 +57,8 @@ const UserList = () => {
         } else {
           console.log("first: " + first);
           setCurrentUsers(
-            users &&
-              users.filter((user) => {
+            currentUsers &&
+              currentUsers.filter((user) => {
                 if (userName === "" && userAge === "") return true;
                 if (userName === "") return user.age.includes(userAge);
                 if (userAge === "") return user.name.includes(userName);
@@ -72,18 +73,19 @@ const UserList = () => {
         console.log("Error: " + error);
         setUsers(null);
         alert("Error get data from server");
-      }).finally(() => {
+      })
+      .finally(() => {
         console.log("Finally");
       });
   }
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(first);
   }, []);
 
   const handleSearch = () => {
     setSearchParams({ userName, userAge });
-    fetchUsers();
+    fetchUsers(false);
   };
 
   return (
@@ -111,6 +113,13 @@ const UserList = () => {
         <button type="submit" onClick={handleSearch}>
           Search
         </button>
+
+        <button
+          type="submit"
+          onClick={() => navigate("/adduser", { replace: true })}
+        >
+          Add User
+        </button>
       </FormGroup>
       <h1>UserList</h1>
       <Table striped bordered hover>
@@ -128,9 +137,9 @@ const UserList = () => {
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.name}</td>
-              <td>{user.avatar}</td>
               <td>{user.age}</td>
               <td>{user.email}</td>
+              <td>{user.avatar}</td>
               <td>
                 <Link to={`/users/${user.id}`}>View</Link>
                 <Link to={`/location?id=${user.id}`} state={{ user: "john" }}>

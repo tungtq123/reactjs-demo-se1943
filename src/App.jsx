@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import UserList from "./components/UserList";
 import LocationDisplay from "./components/LocationDisplay";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import CreateUser from "./components/CreateUser";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/location" element={<LocationDisplay />} />
+        <Route path="/adduser" element={<CreateUser />} />
       </Routes>
       <footer className="footer">
         <p>@ 2026 My Website. All rights reserved.</p>
