@@ -3,17 +3,20 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function ProfileComponent() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const {id} = useParams();
-  const fetchData = async () => {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+  const { id } = useParams();
+  const [profile, setProfile] = useState({ name: "", age: "", email: "" });
+  const url = import.meta.env.VITE_API_URL;
+  async function fetchData() {
+    const response = await fetch(
+      `${url}/${id}`,
+    );
     if (response.ok) {
       const data = await response.json();
-      setIsLoggedIn(true);
+      setProfile(data);
     } else {
-      setIsLoggedIn(false);
+      console.log("Error fetching profile data.");
     }
-  };
+  }
   //const [user, setUser] = useState(null);
   useEffect(() => {
     // This effect runs once when the component is mounted
@@ -27,6 +30,9 @@ function ProfileComponent() {
       {/* {isLoggedIn === true && <Navigate to="/login" replace />} */}
       <h1>User Profile: {id}</h1>
       <p>This is the profile component.</p>
+      <p>Profile Name: {JSON.stringify(profile.name)}</p>
+      <p>Profile Age: {JSON.stringify(profile.age)}</p>
+      <p>Profile Email: {JSON.stringify(profile.email)}</p>
     </div>
   );
 }

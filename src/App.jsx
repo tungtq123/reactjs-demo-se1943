@@ -1,10 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-refresh/only-export-components */
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useContext } from "react";
-// import ToolBar from "./components/ToolBar";
-import Counter from "./components/Counter";
 import LoginForm from "./components/LoginForm";
 import Profile from "./components/Profile";
 import { Route, Routes } from "react-router-dom";

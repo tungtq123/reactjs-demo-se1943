@@ -2,12 +2,13 @@ import { Table } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
 import { FormGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const UserList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [currentUsers, setCurrentUsers] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userAge, setUserAge] = useState("");
   const [users, setUsers] = useState([]);
 
   // dùng fetch để lấy data
@@ -24,35 +25,64 @@ const UserList = () => {
   // }, []);
 
   // dùng axios để lấy data
-  useEffect(() => {
-    axios
-      .get("https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users")
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Error when get data from server");
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users")
+  //     .then((res) => {
+  //       setUsers(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       alert("Error when get data from server");
+  //     });
+  // }, []);
 
-  const fetchUsers = () => {
+  async function fetchUsers(first = true) {
     const name = searchParams.get("name");
     const age = searchParams.get("age");
+    const url = import.meta.env.VITE_API_URL;
     console.log(name, age);
-    const response = fetch(
-      "https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users",
-    );
-    if (response.ok) {
-      const data = response.json();
-      setUsers(data);
-    } else {
-      alert("Error get data from server");
-    }
-  };
+    // await fetch("https://696dfaf7d7bacd2dd715365a.mockapi.io/api/v1/users")
+    await fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCurrentUsers(data);
+        if (first === true) {
+          setCurrentUsers(data);
+          console.log("first: " + first);
+        } else {
+          console.log("first: " + first);
+          setCurrentUsers(
+            users &&
+              users.filter((user) => {
+                if (userName === "" && userAge === "") return true;
+                if (userName === "") return user.age.includes(userAge);
+                if (userAge === "") return user.name.includes(userName);
+                return (
+                  user.name.includes(userName) && user.age.includes(userAge)
+                );
+              }),
+          );
+        }
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+        setUsers(null);
+        alert("Error get data from server");
+      }).finally(() => {
+        console.log("Finally");
+      });
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const handleSearch = () => {
-    setSearchParams({ name, age });
+    setSearchParams({ userName, userAge });
     fetchUsers();
   };
 
@@ -65,7 +95,7 @@ const UserList = () => {
           type="text"
           name="name"
           id="name"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setUserName(e.target.value)}
           placeholder="Name"
           value={searchParams.name}
         />
@@ -74,7 +104,7 @@ const UserList = () => {
           type="text"
           name="age"
           id="age"
-          onChange={(e) => setAge(e.target.value)}
+          onChange={(e) => setUserAge(e.target.value)}
           placeholder="Age"
           value={searchParams.age}
         />
@@ -94,7 +124,7 @@ const UserList = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {currentUsers.map((user) => (
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.name}</td>
